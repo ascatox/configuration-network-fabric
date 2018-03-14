@@ -1,4 +1,4 @@
-## Start the Hyperledger Fabric Configuration Service Network
+## Start the Hyperledger Fabric Configuration Network
 ### Prerequisites
 * Access to internet.
 * Administrative access to the machine with `sudo`.
@@ -7,12 +7,12 @@
 1 Org, 4 peers, 1 orderer with 4 [Kafka](https://kafka.apache.org/) instances and 3 [Zookeeper](https://zookeeper.apache.org/) instances.
 ## Start the Configuration Service Network
 ```bash
-cd configuration-service-network
+cd configuration-netowrk-fabric
 sudo chmod -R +x ./*.sh && sudo chmod +x ./bin/* && sudo chmod +x ./scripts/script.sh
 sudo bash startNetwork.sh
 docker ps -a
 ```
-Point your browser to http://<your_host_address>:8080 to look at [Blockchain Explorer](https://github.com/hyperledger/blockchain-explorer)
+Point your browser to http://<your_host_address>:8180 to look at [Blockchain Explorer](https://github.com/hyperledger/blockchain-explorer)
 
 ## Stop the Configuration Service Network
 `sudo bash stopNetwork.sh`
@@ -23,5 +23,8 @@ If you can't copy `the crypto-config` folder with error `Permission denied`:
 ```bash
 sudo chown -R $(whoami) crypto-config
 ```
+
+## Chaincode
+Chaincode folder contains the smartfactory chaincode installed at network startup.
 
 *PS: Commands tested with Ubuntu 16.04*
