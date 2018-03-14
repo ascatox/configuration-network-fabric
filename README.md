@@ -27,4 +27,9 @@ sudo chown -R $(whoami) crypto-config
 ## Chaincode
 Chaincode folder contains the smartfactory chaincode installed at network startup.
 
+
+
+
+
+
 *PS: Commands tested with Ubuntu 16.04*
