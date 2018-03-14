@@ -7,7 +7,7 @@
 1 Org, 4 peers, 1 orderer with 4 [Kafka](https://kafka.apache.org/) instances and 3 [Zookeeper](https://zookeeper.apache.org/) instances.
 ## Start the Configuration Service Network
 ```bash
-cd configuration-netowrk-fabric
+cd configuration-network-fabric
 sudo chmod -R +x ./*.sh && sudo chmod +x ./bin/* && sudo chmod +x ./scripts/script.sh
 sudo bash startNetwork.sh
 docker ps -a
