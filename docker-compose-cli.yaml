@@ -256,7 +256,7 @@ services:
       - byfn
 
   explorer:
-    image: yeasy/blockchain-explorer:0.1.0-preview
+    image: yeasy/blockchain-explorer:latest
     container_name: blockchain_explorer
     hostname: explorer
     volumes:
