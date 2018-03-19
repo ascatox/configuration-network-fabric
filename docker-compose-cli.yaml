@@ -43,12 +43,12 @@ services:
       - byfn
 
   ca.example.com:
-    image: hyperledger/fabric-ca:x86_64-1.1.0-rc1
+    image: hyperledger/fabric-ca:x86_64-1.1.0
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca.example.com
-      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4239aa0dcd76daeeb8ba0cda701851d14504d31aad1b2ddddbac6a57365e497c_sk
+     # - FABRIC_CA_SERVER_CA_NAME=ca.example.com
+     # - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+     # - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4239aa0dcd76daeeb8ba0cda701851d14504d31aad1b2ddddbac6a57365e497c_sk
     ports:
       - "7054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
@@ -223,7 +223,7 @@ services:
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools:x86_64-1.1.0-rc1
+    image: hyperledger/fabric-tools:x86_64-1.1.0
     tty: true
     environment:
       - GOPATH=/opt/gopath
@@ -256,7 +256,7 @@ services:
       - byfn
 
   explorer:
-    image: yeasy/blockchain-explorer:latest
+    image: yeasy/blockchain-explorer:0.1.0-preview
     container_name: blockchain_explorer
     hostname: explorer
     volumes:
