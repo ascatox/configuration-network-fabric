@@ -1,4 +1,4 @@
-## Start the Hyperledger Fabric Configuration Network
+## Start the Hyperledger Fabric Configuration Network v1.1
 ### Prerequisites
 * Access to internet.
 * Administrative access to the machine with `sudo`.
