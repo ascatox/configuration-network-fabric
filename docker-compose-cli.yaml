@@ -299,7 +299,7 @@ services:
       - byfn
   
   composer: #composer service
-    image: composer-playground:0.19.0-20180323121202
+    image: hyperledger/composer-playground:0.19.0-20180323121202
     container_name: composer-playground
     ports:
       - "8080:8080"
