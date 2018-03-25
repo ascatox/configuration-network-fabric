@@ -41,6 +41,7 @@ function printHelp () {
   echo "      - 'up' - bring up the network with docker-compose up"
   echo "      - 'down' - clear the network with docker-compose down"
   echo "      - 'restart' - restart the network"
+  echo "      - 'reset' - reset the network to default"
   echo "      - 'generate' - generate required certificates and genesis block"
   echo "    -c <channel name> - channel name to use (defaults to \"mychannel\")"
   echo "    -t <timeout> - CLI timeout duration in microseconds (defaults to 10000)"
@@ -83,10 +84,25 @@ function askProceed () {
 # TODO Might want to make this optional - could clear other containers
 function clearContainers () {
   CONTAINER_IDS=$(docker ps -aq)
+  VOLUME_IDS=$(docker volume ls)
   if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
     echo "---- No containers available for deletion ----"
   else
     docker rm -f $CONTAINER_IDS
+    docker volume rm $(docker volume ls)
+
+  fi
+  echo "------ Removing database data... ----------"
+  #rm -rf ~/data/couchdb/*
+}
+# Obtain VOLUME_IDS and remove them
+# TODO Might want to make this optional - could clear other volumes
+function clearVolumes () {
+  VOLUME_IDS=$(docker volume ls)
+  if [ -z "$VOLUME_IDS" -o "$VOLUME_IDS" == " " ]; then
+    echo "---- No volumes available for deletion ----"
+  else
+    docker volume rm -f $VOLUME_IDS
   fi
   echo "------ Removing database data... ----------"
   #rm -rf ~/data/couchdb/*
@@ -129,16 +145,21 @@ function networkUp () {
 function networkDown () {
   docker-compose -f $COMPOSE_FILE down
   docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH down
-  # Don't remove containers, images, etc if restarting
-  if [ "$MODE" != "restart" ]; then
+  # Remove containers, images, only if resetting
+  if [ "$MODE" == "reset" ]; then
     #Cleanup the chaincode containers
     clearContainers
+    #Cleanup volumes
+    clearVolumes
     #Cleanup images
     removeUnwantedImages
     # remove orderer block and other channel configuration transactions and certs
     rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config
     # remove the docker-compose yaml file that was customized to the example
     rm -f docker-compose-e2e.yaml
+    # remove couchDB data folder
+    rm -rf ~/data/* 
+
     
   fi
 }
@@ -347,6 +368,8 @@ if [ "$MODE" == "up" ]; then
   EXPMODE="Stopping"
   elif [ "$MODE" == "restart" ]; then
   EXPMODE="Restarting"
+  elif [ "$MODE" == "reset" ]; then
+  EXPMODE="Resetting to default"
   elif [ "$MODE" == "generate" ]; then
   EXPMODE="Generating certs and genesis block for"
 else
@@ -375,6 +398,9 @@ if [ "${MODE}" == "up" ]; then
   replacePrivateKey
   generateChannelArtifacts
   elif [ "${MODE}" == "restart" ]; then ## Restart the network
+  networkDown
+  networkUp
+ elif [ "${MODE}" == "reset" ]; then ## Reset to default the network
   networkDown
   networkUp
 else
