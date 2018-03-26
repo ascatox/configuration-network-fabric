@@ -129,6 +129,9 @@ function networkUp () {
     generateChannelArtifacts
   fi
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
+    if [ "$MODE" == "reset" ]; then
+      CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f COMPOSE_FILE_CLI_OVERRIDE up -d 2>&1
+     else
       CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH up -d 2>&1
   else
       CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE up -d 2>&1
@@ -338,6 +341,10 @@ CHANNEL_NAME="mychannel"
 COMPOSE_FILE=docker-compose-cli.yaml
 #
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
+
+COMPOSE_FILE_CLI_OVERRIDE=docker-compose-cli.override.yaml
+
+
 
 # Parse commandline args
 while getopts "h?m:c:t:d:f:s:" opt; do
