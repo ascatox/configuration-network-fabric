@@ -130,7 +130,7 @@ function networkUp () {
   fi
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
     if [ "$MODE" == "reset" ]; then
-      CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f COMPOSE_FILE_CLI_OVERRIDE up -d 2>&1
+      CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE  -f COMPOSE_FILE_CLI_OVERRIDE -f $COMPOSE_FILE_COUCH  up -d 2>&1
      else
       CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=$CLI_TIMEOUT DELAY=$CLI_DELAY docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH up -d 2>&1
       fi
@@ -343,7 +343,7 @@ COMPOSE_FILE=docker-compose-cli.yaml
 #
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
 
-COMPOSE_FILE_CLI_OVERRIDE=docker-compose-cli.override.yaml
+COMPOSE_FILE_CLI_OVERRIDE=docker-compose-cli-override.yaml
 
 
 
