@@ -2,8 +2,11 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-cli:
- extends:
+
+version: '2'
+
+ cli:
+  extends:
   file: docker-compose-cli.yaml
   service: cli
   command: /bin/bash -c './scripts/script.sh ${CHANNEL_NAME} ${DELAY}; sleep infinity' #use $TIMEOUT
