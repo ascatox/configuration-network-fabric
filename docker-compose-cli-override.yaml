@@ -39,3 +39,21 @@ services:
       - peer3.org1.example.com
     networks:
       - byfn
+
+  mysql: # mysql service
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=fabricexplorer
+      - STARTUP_SQL=/fabricexplorer.sql
+    volumes:
+      - ./explorer-artifacts/fabricexplorer.sql:/docker-entrypoint-initdb.d/fabricexplorer.sql
+      - .data:/var/lib/mysql
+    expose:
+      - "3306"
+    command: mysqld
+    networks:
+      - byfn

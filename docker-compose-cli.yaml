@@ -290,9 +290,10 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=fabricexplorer
-      - STARTUP_SQL=/fabricexplorer.sql
+      #- STARTUP_SQL=/fabricexplorer.sql
     volumes:
-      - ./explorer-artifacts/fabricexplorer.sql:/docker-entrypoint-initdb.d/fabricexplorer.sql
+      #- ./explorer-artifacts/fabricexplorer.sql:/docker-entrypoint-initdb.d/fabricexplorer.sql
+      - .data:/var/lib/mysql
     expose:
       - "3306"
     command: mysqld
