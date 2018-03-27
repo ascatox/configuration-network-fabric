@@ -24,7 +24,7 @@ services:
     ports:
       - "5984:5984"
     volumes:
-      - ~/data/couchdb0:/opt/couchdb/data
+      - ./data/couchdb0:/opt/couchdb/data
     networks:
       - byfn
 
@@ -54,7 +54,7 @@ services:
     ports:
       - "6984:5984"
     volumes:
-      - ~/data/couchdb1:/opt/couchdb/data
+      - ./data/couchdb1:/opt/couchdb/data
     networks:
       - byfn
 
@@ -114,7 +114,7 @@ services:
       ports:
         - "8984:5984"
       volumes:
-        - ~/data/couchdb3:/opt/couchdb/data
+        - ./data/couchdb3:/opt/couchdb/data
       networks:
         - byfn
 
