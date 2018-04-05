@@ -85,7 +85,7 @@ services:
       ports:
         - "7984:5984"
       volumes:
-        - ~/data/couchdb2:/opt/couchdb/data
+        - ./data/couchdb2:/opt/couchdb/data
       networks:
         - byfn
 

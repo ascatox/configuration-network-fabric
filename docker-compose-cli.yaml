@@ -293,7 +293,7 @@ services:
       #- STARTUP_SQL=/fabricexplorer.sql
     volumes:
       #- ./explorer-artifacts/fabricexplorer.sql:/docker-entrypoint-initdb.d/fabricexplorer.sql
-      - .data:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     expose:
       - "3306"
     command: mysqld
