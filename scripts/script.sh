@@ -245,5 +245,7 @@ echo "|  _|   |  \| | | | | | "
 echo "| |___  | |\  | | |_| | "
 echo "|_____| |_| \_| |____/  "
 echo
+echo "Press Ctrl-c to exit"
+
 
 exit 0
