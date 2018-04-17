@@ -60,149 +60,150 @@ services:
     networks:
       - byfn
   
-  kafka0:
-    image: hyperledger/fabric-kafka:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: kafka0
-    hostname: kafka0
-    environment:
-      - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_LOG_RETENTION_MS=-1
-      - KAFKA_BROKER_ID=0
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
-    depends_on:
-      - zookeeper0
-      - zookeeper1
-      - zookeeper2
-    expose:
-      - '9092'
-    networks:
-      - byfn
+  # TODO Kafka
+  # kafka0:
+  #   image: hyperledger/fabric-kafka:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: kafka0
+  #   hostname: kafka0
+  #   environment:
+  #     - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+  #     - KAFKA_LOG_RETENTION_MS=-1
+  #     - KAFKA_BROKER_ID=0
+  #     - KAFKA_MIN_INSYNC_REPLICAS=2
+  #     - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+  #   depends_on:
+  #     - zookeeper0
+  #     - zookeeper1
+  #     - zookeeper2
+  #   expose:
+  #     - '9092'
+  #   networks:
+  #     - byfn
 
-  kafka1:
-    image: hyperledger/fabric-kafka:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: kafka1
-    hostname: kafka1
-    environment:
-      - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_LOG_RETENTION_MS=-1
-      - KAFKA_BROKER_ID=1
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
-    depends_on:
-      - zookeeper0
-      - zookeeper1
-      - zookeeper2
-    expose:
-      - '9092'
-    networks:
-      - byfn
+  # kafka1:
+  #   image: hyperledger/fabric-kafka:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: kafka1
+  #   hostname: kafka1
+  #   environment:
+  #     - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+  #     - KAFKA_LOG_RETENTION_MS=-1
+  #     - KAFKA_BROKER_ID=1
+  #     - KAFKA_MIN_INSYNC_REPLICAS=2
+  #     - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+  #   depends_on:
+  #     - zookeeper0
+  #     - zookeeper1
+  #     - zookeeper2
+  #   expose:
+  #     - '9092'
+  #   networks:
+  #     - byfn
 
-  kafka2:
-    image: hyperledger/fabric-kafka:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: kafka2
-    hostname: kafka2
-    environment:
-      - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_LOG_RETENTION_MS=-1
-      - KAFKA_BROKER_ID=2
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
-    depends_on:
-      - zookeeper0
-      - zookeeper1
-      - zookeeper2
-    expose:
-      - '9092'
-    networks:
-      - byfn
+  # kafka2:
+  #   image: hyperledger/fabric-kafka:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: kafka2
+  #   hostname: kafka2
+  #   environment:
+  #     - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+  #     - KAFKA_LOG_RETENTION_MS=-1
+  #     - KAFKA_BROKER_ID=2
+  #     - KAFKA_MIN_INSYNC_REPLICAS=2
+  #     - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+  #   depends_on:
+  #     - zookeeper0
+  #     - zookeeper1
+  #     - zookeeper2
+  #   expose:
+  #     - '9092'
+  #   networks:
+  #     - byfn
 
-  kafka3:
-    image: hyperledger/fabric-kafka:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: kafka3
-    hostname: kafka3
-    environment:
-      - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
-      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
-      - KAFKA_LOG_RETENTION_MS=-1
-      - KAFKA_BROKER_ID=3
-      - KAFKA_MIN_INSYNC_REPLICAS=2
-      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
-    depends_on:
-      - zookeeper0
-      - zookeeper1
-      - zookeeper2
-    expose:
-      - '9092'
-    networks:
-      - byfn
+  # kafka3:
+  #   image: hyperledger/fabric-kafka:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: kafka3
+  #   hostname: kafka3
+  #   environment:
+  #     - KAFKA_MESSAGE_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 # 1 * 1024 * 1024 B
+  #     - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+  #     - KAFKA_LOG_RETENTION_MS=-1
+  #     - KAFKA_BROKER_ID=3
+  #     - KAFKA_MIN_INSYNC_REPLICAS=2
+  #     - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+  #   depends_on:
+  #     - zookeeper0
+  #     - zookeeper1
+  #     - zookeeper2
+  #   expose:
+  #     - '9092'
+  #   networks:
+  #     - byfn
 
-  zookeeper0:
-    image: hyperledger/fabric-zookeeper:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: zookeeper0
-    hostname: zookeeper0
-    environment:
-      - ZOO_MY_ID=1
-      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
-    expose:
-      - '2181'
-      - '2888'
-      - '3888'
-    networks:
-      - byfn
+  # zookeeper0:
+  #   image: hyperledger/fabric-zookeeper:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: zookeeper0
+  #   hostname: zookeeper0
+  #   environment:
+  #     - ZOO_MY_ID=1
+  #     - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+  #   expose:
+  #     - '2181'
+  #     - '2888'
+  #     - '3888'
+  #   networks:
+  #     - byfn
       
-  zookeeper1:
-    image: hyperledger/fabric-zookeeper:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: zookeeper1
-    hostname: zookeeper1
-    environment:
-      - ZOO_MY_ID=2
-      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
-    expose:
-      - '2181'
-      - '2888'
-      - '3888'
-    networks:
-      - byfn
+  # zookeeper1:
+  #   image: hyperledger/fabric-zookeeper:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: zookeeper1
+  #   hostname: zookeeper1
+  #   environment:
+  #     - ZOO_MY_ID=2
+  #     - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+  #   expose:
+  #     - '2181'
+  #     - '2888'
+  #     - '3888'
+  #   networks:
+  #     - byfn
 
-  zookeeper2:
-    image: hyperledger/fabric-zookeeper:x86_64-1.0.6
-    restart: always
-    tty: true
-    container_name: zookeeper2
-    hostname: zookeeper2
-    environment:
-      - ZOO_MY_ID=3
-      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
-    expose:
-      - '2181'
-      - '2888'
-      - '3888'
-    networks:
-      - byfn
+  # zookeeper2:
+  #   image: hyperledger/fabric-zookeeper:x86_64-1.0.6
+  #   restart: always
+  #   tty: true
+  #   container_name: zookeeper2
+  #   hostname: zookeeper2
+  #   environment:
+  #     - ZOO_MY_ID=3
+  #     - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+  #   expose:
+  #     - '2181'
+  #     - '2888'
+  #     - '3888'
+  #   networks:
+  #     - byfn
   
   orderer.example.com:
     extends:
@@ -213,11 +214,11 @@ services:
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
     container_name: orderer.example.com
-    depends_on:
-      - kafka0
-      - kafka1
-      - kafka2
-      - kafka3
+    # depends_on:
+    #   - kafka0
+    #   - kafka1
+    #   - kafka2
+    #   - kafka3
     networks:
       - byfn
 
