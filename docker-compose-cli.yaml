@@ -209,10 +209,10 @@ services:
     extends:
       file:   base/docker-compose-base.yaml
       service: orderer.example.com
-    environment:
-      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
-      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
-      - ORDERER_KAFKA_VERBOSE=true
+    # environment:
+    #   - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+    #   - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+    #   - ORDERER_KAFKA_VERBOSE=true
     container_name: orderer.example.com
     # depends_on:
     #   - kafka0
