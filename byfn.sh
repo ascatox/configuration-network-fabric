@@ -340,7 +340,7 @@ OS_ARCH=$(echo "$(uname -s|tr '[:upper:]' '[:lower:]'|sed 's/mingw64_nt.*/window
 # another container before giving up
 CLI_TIMEOUT=10
 #default for delay
-CLI_DELAY=3
+CLI_DELAY=8
 # channel name defaults to "mychannel"
 CHANNEL_NAME="mychannel"
 # use this as the default docker-compose yaml definition
