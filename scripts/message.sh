@@ -5,5 +5,6 @@ echo " | __ | | || | | _ \ / -_) | '_| | | / -_) / _ | / _ | / -_) | '_|   | _| 
 echo " |_||_|  \_, | | .__/ \___| |_|   |_| \___| \__,_| \__, | \___| |_|     |_|   \__,_| |_.__/ |_|   |_| \__|   |_|   \___| \__,_| \__,_|  \_, |    \__| \___/   |_.__/ |_| \___/ \__| |_\_\ \__| |_||_| \__,_| |_| |_||_| (_) (_) (_)     "
 echo "         |__/  |_|                                 |___/                                                                                |__/                                                                                            "
 echo "Start Configuration Service 'Hyperledger Composer' available at http://<your_host>:8080"
+echo "Start Configuration Service 'Hyperledger Explorer' available at http://<your_host>:8180"
 echo
 exit 0
