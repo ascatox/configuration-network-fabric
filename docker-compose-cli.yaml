@@ -15,8 +15,7 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer0.org1.example.com
-    environment:
-     - peer-chaincodedev=true
+    #-io orderer.example.com:7050
     networks:
       - byfn
 
@@ -41,6 +40,7 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer3.org1.example.com
+#    command: peer node start --peer-chaincodedev=true
     networks:
       - byfn
 
@@ -246,12 +246,13 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash -c './scripts/script_reduced.sh ${CHANNEL_NAME} ${DELAY}; sleep infinity' #use $TIMEOUT
     volumes:
-        - /var/run/:/host/var/run/
-        - ./chaincode/smartfactory/src/github.com/:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
-        - ./chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode
-        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
-        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
-        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+      - /var/run/:/host/var/run/
+      #- ./chaincode/smartfactory/src/github.com:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go             
+      - ./chaincode/go:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
+      - ./chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode
+      - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - ca.example.com
       - orderer.example.com
