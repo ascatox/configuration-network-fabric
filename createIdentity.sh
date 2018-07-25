@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ORG_NAME="$ORG_NAME"
+ORG_NAME="org1.example.com"
 TYPE="user"
 
 if [ "$1" == "" ]; then
