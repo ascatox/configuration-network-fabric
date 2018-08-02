@@ -36,7 +36,7 @@ docker exec -it ca.example.com fabric-ca-client enroll -u http://admin:adminpw@l
 docker exec -it ca.example.com fabric-ca-client register  --id.name $1  --id.type $TYPE  --id.secret $PASSWORD --id.maxenrollments -1 --id.attrs $ATTRS
 docker exec -it ca.example.com  fabric-ca-client enroll -u http://$1:$PASSWORD@ca.example.com:7054 -M crypto-config/peerOrganizations/org1.example.com/msp
 echo "UID is $UUID"
-echo "UID of $1 is $UUID" >> log_uids.txt
+echo "UID of $1 is $UUID with role $DCOT_ROLE" >> log_uids.txt
 
 # Stop fabric-ca-server.
 # Copy crypto-config/peerOrganizations/<orgName>/ca/*pem to $FABRIC_CA_SERVER_HOME/ca-cert.pem.
