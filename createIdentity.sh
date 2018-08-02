@@ -5,25 +5,30 @@ TYPE="user"
 PASSWORD="faredge2018"
 #ATTRS='"hf.Registrar.Roles=peer,client,user"'
 UUID=$(cat /proc/sys/kernel/random/uuid)
+DCOT_ROLE="dcot-user"
 
 if [ "$1" == "" ]; then
-	echo "Insert the name of the user to create'"
-	echo "Usage ./createIdentity <name> <password> <user/peer> <uid>"
+	echo "Insert the 'name' of the user to create"
+	echo "Usage ./createIdentity <name> <dcot-user/dcot-operator> <password> <user/peer> <uid>"
 	exit 0
 fi
 
 if [ "$2" != "" ]; then
-	PASSWORD=$2
+	DCOT_ROLE=$2
 fi
 
 if [ "$3" != "" ]; then
-	TYPE=$3
+	PASSWORD=$3
 fi
 
 if [ "$4" != "" ]; then
-	UUID=$4
+	TYPE=$4
 fi
-ATTRS="role=dcot-operator:ecert,uid=$UUID:ecert"
+
+if [ "$5" != "" ]; then
+	UUID=$5
+fi
+ATTRS="role=$DCOT_ROLE:ecert,uid=$UUID:ecert"
 
 # id.maxenrollments -1 infinite
 docker exec -it ca.example.com fabric-ca-client enroll -u http://admin:adminpw@localhost:7054
