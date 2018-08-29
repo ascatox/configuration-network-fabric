@@ -42,6 +42,7 @@ docker stop ca.example.com
 sudo cp crypto-config/peerOrganizations/$ORG_NAME/ca/*pem ca/data/ca-cert.pem
 sudo cp crypto-config/peerOrganizations/$ORG_NAME/ca/*_sk ca/data/msp/keystore/.
 
-sudo mkdir -p crypto-users/$1 && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*pem crypto-users/$1/ca-cert.pem
-sudo mkdir -p crypto-users/$1/keystore && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*_sk crypto-users/$1/keystore/.
+sudo mkdir -p crypto-users/$ORG_NAME/$1 && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*pem crypto-users/$ORG_NAME/$1/ca-cert.pem
+sudo mkdir -p crypto-users/$ORG_NAME/$1/keystore && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*_sk crypto-users/$ORG_NAME/$1/keystore/.
+sudo mkdir -p crypto-users/archives && tar -zcvf crypto-users/archives/$1.tar.gz crypto-users/$ORG_NAME/$1
 docker start ca.example.com
