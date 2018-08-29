@@ -38,13 +38,10 @@ docker exec -it ca.example.com  fabric-ca-client enroll -u http://$1:$PASSWORD@c
 echo "UID is $UUID"
 echo "UID of $1 is $UUID with role $DCOT_ROLE" >> log_uids.txt
 
-# Stop fabric-ca-server.
-# Copy crypto-config/peerOrganizations/<orgName>/ca/*pem to $FABRIC_CA_SERVER_HOME/ca-cert.pem.
-# Copy crypto-config/peerOrganizations/<orgName>/ca/*_sk to $FABRIC_CA_SERVER_HOME/msp/keystore/.
-# Start fabric-ca-server.
-# Delete any previously issued enrollment certificates and get new certificates by enrolling again.
-
 docker stop ca.example.com
 sudo cp crypto-config/peerOrganizations/$ORG_NAME/ca/*pem ca/data/ca-cert.pem
 sudo cp crypto-config/peerOrganizations/$ORG_NAME/ca/*_sk ca/data/msp/keystore/.
+
+sudo mkdir -p crypto-users/$1 && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*pem crypto-users/$1/ca-cert.pem
+sudo mkdir -p crypto-users/$1/keystore && cp -f crypto-config/peerOrganizations/$ORG_NAME/ca/*_sk crypto-users/$1/keystore/.
 docker start ca.example.com
