@@ -40,7 +40,7 @@ services:
     extends:
       file:  base/docker-compose-base.yaml
       service: peer3.org1.example.com
-    command: peer node start --peer-chaincodedev=true
+    #command: peer node start --peer-chaincodedev=true
     networks:
       - byfn
 
