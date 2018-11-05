@@ -1,0 +1,111 @@
+{
+    "network-configs": {
+      "network-1": {
+        "version": "1.3",
+        "clients": {
+          "client-1": {
+            "tlsEnable": true,
+            "organization": "Org1MSP",
+            "channel": "ledgerchannel",
+            "credentialStore": {
+              "path": "./tmp/credentialStore_Org1/credential",
+              "cryptoStore": {
+                "path": "./tmp/credentialStore_Org1/crypto"
+              }
+            }
+          }
+        },
+        "channels": {
+          "ledgerchannel": {
+            "peers": {
+              "peer0.org1.example.com": {}
+            },
+            "connection": {
+              "timeout": {
+                "peer": {
+                  "endorser": "6000",
+                  "eventHub": "6000",
+                  "eventReg": "6000"
+                }
+              }
+            }
+          }
+        },
+        "organizations": {
+          "Org1MSP": {
+            "mspid": "Org1MSP",
+            "fullpath": false,
+            "adminPrivateKey": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore"
+            },
+            "signedCert": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts"
+            }
+          },
+          "OrdererMSP": {
+            "mspid": "OrdererMSP",
+            "adminPrivateKey": {
+              "path":
+                "/tmp/crypto/ordererOrganizations/example.com/users/Admin@example.com/msp/keystore"
+            }
+          }
+        },
+        "peers": {
+          "peer0.org1.example.com": {
+            "tlsCACerts": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+            },
+            "url": "grpc://peer0.org1.example.com:7051",
+            "eventUrl": "grpc://peer0.org1.example.com:7053",
+            "grpcOptions": {
+              "ssl-target-name-override": "peer0.org1.example.com"
+            }
+          },
+          "peer1.org1.example.com": {
+            "tlsCACerts": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt"
+            },
+            "url": "grpc://peer1.org1.example.com:8051",
+            "eventUrl": "grpc://peer1.org1.example.com:8053",
+            "grpcOptions": {
+              "ssl-target-name-override": "peer1.org1.example.com"
+            }
+          },
+          "peer2.org1.example.com": {
+            "tlsCACerts": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls/ca.crt"
+            },
+            "url": "grpc://peer2.org1.example.com:9051",
+            "eventUrl": "grpc://peer2.org1.example.com:9053",
+            "grpcOptions": {
+              "ssl-target-name-override": "peer2.org1.example.com"
+            }
+          },
+          "peer3.org1.example.com": {
+            "tlsCACerts": {
+              "path":
+                "/tmp/crypto/peerOrganizations/org1.example.com/peers/peer3.org1.example.com/tls/ca.crt"
+            },
+            "url": "grpc://peer3.org1.example.com:10051",
+            "eventUrl": "grpc://peer3.org1.example.com:10053",
+            "grpcOptions": {
+              "ssl-target-name-override": "peer3.org1.example.com"
+            }
+          }
+        },
+        "orderers": {
+          "orderer.example.com": {
+            "url": "grpc://orderer.example.com:7050"
+          }
+        }
+      }
+    },
+    "configtxgenToolPath": "/fabric-path/workspace/fabric-samples/bin",
+    "license": "Apache-2.0"
+  }
+  

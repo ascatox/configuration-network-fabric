@@ -3,54 +3,65 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-version: '2'
+version: "2"
 
 networks:
-  byfn:
+  ? byfn
 
 services:
-
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
     extends:
-      file:  base/docker-compose-base.yaml
+      file: base/docker-compose-base.yaml
       service: peer0.org1.example.com
-    
     networks:
       - byfn
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/peer/tls
 
   peer1.org1.example.com:
     container_name: peer1.org1.example.com
     extends:
-      file:  base/docker-compose-base.yaml
+      file: base/docker-compose-base.yaml
       service: peer1.org1.example.com
     networks:
       - byfn
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/peer/tls
 
   peer2.org1.example.com:
     container_name: peer2.org1.example.com
     extends:
-      file:  base/docker-compose-base.yaml
+      file: base/docker-compose-base.yaml
       service: peer2.org1.example.com
     networks:
       - byfn
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/tls:/etc/hyperledger/peer/tls
 
   peer3.org1.example.com:
     container_name: peer3.org1.example.com
     extends:
-      file:  base/docker-compose-base.yaml
+      file: base/docker-compose-base.yaml
       service: peer3.org1.example.com
     #command: peer node start --peer-chaincodedev=true
     networks:
       - byfn
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer3.org1.example.com/tls:/etc/hyperledger/peer/tls
+
+  # javaenv:
+  #  container_name: javaenv
+  #  build: ./javaenv
+  # image: hyperledger/fabric-javaenv:1.3.0
 
   ca.example.com:
-    image: hyperledger/fabric-ca:1.2.0
+    image: hyperledger/fabric-ca:1.3.0
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.example.com
-     # - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-     # - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4239aa0dcd76daeeb8ba0cda701851d14504d31aad1b2ddddbac6a57365e497c_sk
+      # - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+      # - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4239aa0dcd76daeeb8ba0cda701851d14504d31aad1b2ddddbac6a57365e497c_sk
     ports:
       - "7054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
@@ -61,10 +72,10 @@ services:
     container_name: ca.example.com
     networks:
       - byfn
-  
+
   #TODO Kafka
   kafka0:
-    image: hyperledger/fabric-kafka:0.4.10
+    image: hyperledger/fabric-kafka:0.4.14
     restart: always
     tty: true
     container_name: kafka0
@@ -84,12 +95,12 @@ services:
       # - zookeeper1
       # - zookeeper2
     expose:
-      - '9092'
+      - "9092"
     networks:
       - byfn
 
   kafka1:
-    image: hyperledger/fabric-kafka:0.4.10
+    image: hyperledger/fabric-kafka:0.4.14
     restart: always
     tty: true
     container_name: kafka1
@@ -109,7 +120,7 @@ services:
       # - zookeeper1
       # - zookeeper2
     expose:
-      - '9092'
+      - "9092"
     networks:
       - byfn
 
@@ -162,7 +173,7 @@ services:
   #     - byfn
 
   zookeeper0:
-    image: hyperledger/fabric-zookeeper:0.4.10
+    image: hyperledger/fabric-zookeeper:0.4.14
     restart: always
     tty: true
     container_name: zookeeper0
@@ -172,12 +183,12 @@ services:
       - ZOO_SERVERS=server.1=zookeeper0:2888:3888
       # server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
     expose:
-      - '2181'
-      - '2888'
-      - '3888'
+      - "2181"
+      - "2888"
+      - "3888"
     networks:
       - byfn
-      
+
   # zookeeper1:
   #   image: hyperledger/fabric-zookeeper:x86_64-1.0.6
   #   restart: always
@@ -209,15 +220,20 @@ services:
   #     - '3888'
   #   networks:
   #     - byfn
-  
+
   orderer.example.com:
     extends:
-      file:   base/docker-compose-base.yaml
+      file: base/docker-compose-base.yaml
       service: orderer.example.com
     environment:
       - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
+        # enabled TLS
+        # - ORDERER_GENERAL_TLS_ENABLED=true
+        # - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/tls/orderer/tls/server.key
+        # - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/tls/orderer/tls/server.crt
+        #- ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/tls/orderer/tls/ca.crt]
     container_name: orderer.example.com
     depends_on:
       - kafka0
@@ -226,10 +242,12 @@ services:
       # - kafka3
     networks:
       - byfn
+    volumes:
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls:/etc/hyperledger/tls/orderer/tls
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools:1.2.0
+    image: hyperledger/fabric-tools:1.3.0
     tty: true
     environment:
       - GOPATH=/opt/gopath
@@ -238,21 +256,22 @@ services:
       - CORE_PEER_ID=cli
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
-      - CORE_PEER_TLS_ENABLED=false
+      - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=true
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash -c './scripts/script_reduced.sh ${CHANNEL_NAME} ${DELAY}; sleep infinity' #use $TIMEOUT
     volumes:
-        - /var/run/:/host/var/run/
-       # - ./chaincode/smartfactory/src/github.com/:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
-        - ./chaincode/go:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
-        - ./chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode
-        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
-        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
-        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+      - /var/run/:/host/var/run/
+      # - ./chaincode/smartfactory/src/github.com/:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
+      - ./chaincode/go:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
+      - ./chaincode:/opt/gopath/src/github.com/hyperledger/fabric/chaincode
+      - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - ca.example.com
       - orderer.example.com
@@ -306,11 +325,60 @@ services:
     command: mysqld
     networks:
       - byfn
-  
+
   composer: #composer service
-    image: hyperledger/composer-playground:0.19.13-20180712043709
+    image: hyperledger/composer-playground:0.20.3-20181023120440
     container_name: composer-playground
     ports:
       - "8080:8080"
     networks:
-     - byfn
+      - byfn
+
+  blockchain-explorer-db:
+    image: hyperledger/explorer-db:latest
+    container_name: blockchain-explorer-db
+    hostname: blockchain-explorer-db
+    restart: always
+    environment:
+      - DATABASE_DATABASE=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWORD=password
+    expose:
+      - "5432"
+    volumes:
+      - ./data/postgreSQL:/var/lib/postgresql/data
+    networks:
+      - byfn
+
+  blockchain-explorer:
+    image: hyperledger/explorer:latest
+    container_name: blockchain-explorer
+    hostname: blockchain-explorer
+    restart: always
+    environment:
+      - DATABASE_HOST=blockchain-explorer-db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWD=password
+    volumes:
+      - ./explorer-artifacts/blockchain-explorer/config.json:/opt/explorer/app/platform/fabric/config.json
+      - ./explorer-artifacts/blockchain-explorer/explorerconfig.json:/opt/explorer/app/explorerconfig.json
+      - ./crypto-config:/tmp/crypto
+    ports:
+      - "8090:8080"
+    depends_on:
+      - blockchain-explorer-db
+      - orderer.example.com
+      - peer0.org1.example.com
+      - peer1.org1.example.com
+      - peer2.org1.example.com
+      - peer3.org1.example.com
+    links:
+      - orderer.example.com
+      - peer0.org1.example.com
+      - peer1.org1.example.com
+      - peer2.org1.example.com
+      - peer3.org1.example.com
+    networks:
+      - byfn

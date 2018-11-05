@@ -1,0 +1,16 @@
+{
+  "persistence": "postgreSQL",
+  "platforms": ["fabric"],
+  "postgreSQL": {
+    "host": "blockchain-explorer-db",
+    "port": "5432",
+    "database": "fabricexplorer",
+    "username": "hppoc",
+    "passwd": "password"
+  },
+  "sync": {
+    "type": "local",
+    "platform": "fabric",
+    "blocksSyncTime": "3"
+  }
+}

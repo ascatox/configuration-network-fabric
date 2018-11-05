@@ -1,0 +1,16 @@
+{
+    "name": "analytics-chaincode",
+    "version": "1.0.0",
+    "description": "",
+    "main": "analytics-chaincode.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node analytics-chaincode.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "fabric-shim": "unstable",
+      "lodash":"4.17.5"
+    }
+  }
