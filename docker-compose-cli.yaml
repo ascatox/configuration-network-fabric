@@ -56,7 +56,7 @@ services:
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./ca/data:/etc/hyperledger/fabric-ca-server
-      -  - ./crypto-config/peerOrganizations/org1.example.com/msp/:/etc/hyperledger/fabric-ca-server/crypto-config/peerOrganizations/org1.example.com/msp
+      - ./crypto-config/peerOrganizations/org1.example.com/msp/:/etc/hyperledger/fabric-ca-server/crypto-config/peerOrganizations/org1.example.com/msp
    #  - ./ca/msp:/msp
       - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.example.com
