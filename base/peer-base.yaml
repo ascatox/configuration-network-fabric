@@ -23,10 +23,10 @@ services:
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/peer/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/peer/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/peer/tls/ca.crt
-      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=true
-      - CORE_PEER_TLS_CLIENTROOTCAS_FILES=/etc/hyperledger/peer/tls/ca.crt
-      - CORE_PEER_TLS_CLIENTCERT_FILE=etc/hyperledger/peer/tls/server.crt
-      - CORE_PEER_TLS_CLIENTKEY_FILE=/etc/hyperledger/peer/tls/server.key
+      #- CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+      #- CORE_PEER_TLS_CLIENTROOTCAS_FILES=/etc/hyperledger/peer/tls/ca.crt
+      #- CORE_PEER_TLS_CLIENTCERT_FILE=etc/hyperledger/peer/tls/server.crt
+      #- CORE_PEER_TLS_CLIENTKEY_FILE=/etc/hyperledger/peer/tls/server.key
       # - http_proxy=http://proxy_ascatox:8680
       # - https_proxy=http://proxy_ascatox:8680
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer

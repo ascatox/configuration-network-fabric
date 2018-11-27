@@ -1,5 +1,7 @@
 #!/bin/bash
 CHANNEL='ledgerchannel'
+CORE_PEER_TLS_ENABLED="true"
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 VERSION='1.0'
 LANG=''
 OPERATION='instantiate'
@@ -28,6 +30,10 @@ echo "Install chaincode on peer0 from $PWD"
 echo "command: peer chaincode install -n $1 -v $VERSION -p $PERCORSO $LANG"
 sleep 10
 docker exec -it cli peer chaincode install -n $1 -v $VERSION -p $PERCORSO $LANG
-sleep 10 
+sleep 20 
 echo "Instantiate chaincode"
-docker exec -it cli peer chaincode $OPERATION -n $1 -c '{"Args":["a","10"]}' -C $CHANNEL -v $VERSION
+ if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
+	docker exec -it cli peer chaincode $OPERATION -n $1 -c '{"Args":["a","10"]}' -C $CHANNEL -v $VERSION
+else
+	docker exec -it cli peer chaincode $OPERATION -n $1 -c '{"Args":["a","10"]}' -C $CHANNEL -v $VERSION --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+fi
