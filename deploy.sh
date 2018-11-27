@@ -21,7 +21,7 @@ if [ "$4" != "" ]; then
     PERCORSO=$PERCORSO_NODE$1
 fi
 if [ "$3" != "" ]; then
-	OPERATION='upgrade'
+	OPERATION=$3
 fi
 
 echo "Install chaincode on peer0 from $PWD"
