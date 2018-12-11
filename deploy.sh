@@ -1,5 +1,6 @@
 #!/bin/bash
 CHANNEL='ledgerchannel'
+PEER='peer0.org1.example.com'
 VERSION='1.0'
 LANG=''
 OPERATION='instantiate'
@@ -31,3 +32,5 @@ docker exec -it cli peer chaincode install -n $1 -v $VERSION -p $PERCORSO $LANG
 sleep 10 
 echo "Instantiate chaincode"
 docker exec -it cli peer chaincode $OPERATION -n $1 -c '{"Args":["a","10"]}' -C $CHANNEL -v $VERSION
+sleep 5
+docker logs dev-$PEER-$1-$VERSION
